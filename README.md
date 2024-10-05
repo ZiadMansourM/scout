@@ -1,5 +1,7 @@
 Scout
 -----
+> Scout the Meerkat got your back!
+
 Scout is a lightweight and fast command-line tool for analyzing codebases. Whether you're copying code for context (like when using ChatGPT) or exploring a new project, Scout gives you a quick and comprehensive overview of your codebase’s folder structure, file types, and code statistics in seconds!
 
 ![scout](https://github.com/user-attachments/assets/26c12282-2a7e-428b-af2a-d01b75838003)
