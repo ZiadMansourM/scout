@@ -1,12 +1,13 @@
 Scout
 -----
-Scout is a lightweight and fast command-line tool for analyzing codebases. It helps you get a quick overview of your project's folder structure, file types, and code statistics in seconds!
+Scout is a lightweight and fast command-line tool for analyzing codebases. Whether you're copying code for context (like when using ChatGPT) or exploring a new project, Scout gives you a quick and comprehensive overview of your codebase’s folder structure, file types, and code statistics in seconds!
 
 ![scout](https://github.com/user-attachments/assets/26c12282-2a7e-428b-af2a-d01b75838003)
 
 
 🚀 Features
 -----------
+- Quick Code Extraction: Instantly gather project details to copy into tools like ChatGPT for context.
 - Folder Structure Analysis: Generates a detailed report of the project's folder hierarchy.
 - File Type & Line Count Stats: Summarizes the number of files and lines of code per file type.
 - Largest File Identification: Find the biggest files in terms of size and lines.
@@ -34,3 +35,11 @@ tar -xvzf scout_<platform>.tgz
 🌟 Why Scout?
 -------------
 Scout gives you instant insights into your project's structure, helping you stay organized and focused on what matters most — coding!
+
+Contribution Guidelines
+------------------------
+
+**I welcome your contributions!  Here's how you can help:**
+
+- `Open Issues`: Share your ideas, feature suggestions, or any bugs you discover.
+- `Submit Pull Requests`: Feel free to directly propose code improvements or new features.
