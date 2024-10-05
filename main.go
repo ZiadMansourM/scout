@@ -12,13 +12,14 @@ import (
 )
 
 const (
-	REPO_DIR                  = "/Users/ziadh/Desktop/playgroud/go/api/budgetly/"
+	DEFAULT_REPO_DIR          = "."
 	OUTPUT_FILE_SUFFIX        = "_output.txt"
 	GITIGNORE_FILENAME        = ".gitignore"
 	MAX_LINES_FOR_LARGE_FILES = 300
 )
 
 var (
+	REPO_DIR    string
 	REPO_NAME   string
 	OUTPUT_FILE string
 	SCRIPT_NAME string
@@ -45,9 +46,23 @@ var (
 )
 
 func init() {
-	REPO_NAME = filepath.Base(REPO_DIR)
-	OUTPUT_FILE = REPO_NAME + OUTPUT_FILE_SUFFIX
 	SCRIPT_NAME = filepath.Base(os.Args[0])
+
+	// Parse command-line arguments for repo directory and output file
+	if len(os.Args) > 1 {
+		REPO_DIR = os.Args[1]
+	} else {
+		REPO_DIR = DEFAULT_REPO_DIR // Default if not provided
+	}
+
+	// Get the repository name
+	REPO_NAME = filepath.Base(REPO_DIR)
+
+	if len(os.Args) > 2 {
+		OUTPUT_FILE = os.Args[2]
+	} else {
+		OUTPUT_FILE = REPO_NAME + OUTPUT_FILE_SUFFIX // Default output file
+	}
 }
 
 func handleError(errorMessage string, exitProgram bool) {
@@ -55,6 +70,12 @@ func handleError(errorMessage string, exitProgram bool) {
 	if exitProgram {
 		fmt.Fprintln(os.Stderr, "Exiting program due to error.")
 		os.Exit(1)
+	}
+}
+
+func validatePaths(repoDir string) {
+	if _, err := os.Stat(repoDir); os.IsNotExist(err) {
+		handleError(fmt.Sprintf("Invalid path: %s does not exist.", repoDir), true)
 	}
 }
 
@@ -381,6 +402,9 @@ func processFileContent(filePath string) string {
 }
 
 func main() {
+	// Validate that the repo path exists
+	validatePaths(REPO_DIR)
+
 	gitignorePath := filepath.Join(REPO_DIR, GITIGNORE_FILENAME)
 	gitignore := parseGitignore(gitignorePath)
 
@@ -393,18 +417,14 @@ func main() {
 
 	aiInstructions := `
 AI INSTRUCTIONS:
-When assisting with this project, please adhere to the following guidelines:
+The following is the content of the codebase for your context. When assisting with this project, 
+please adhere to the following guidelines:
 
 1. Always return the full, working file when editing code, ready for copy-paste.
 2. Follow language-specific conventions and maintain consistent style.
 3. Write clear, self-documenting code with concise comments for complex logic.
-4. Implement proper error handling and logging.
-5. Design modular, reusable code following SOLID principles.
-6. Prioritize readability and maintainability over cleverness.
-7. Use descriptive names for variables, functions, and classes.
-8. Keep functions small and focused on a single responsibility.
-9. Practice proper scoping and avoid global variables.
-10. Apply appropriate design patterns to improve code structure.
+4. Use descriptive names for variables, functions, and classes.
+5. Keep functions small and focused on a single responsibility.
 
 Please keep these instructions in mind when providing assistance or generating code for this project.
 
